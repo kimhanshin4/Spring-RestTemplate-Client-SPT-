@@ -1,6 +1,7 @@
 package com.sparta.springresttemplateclient.service;
 
 import com.sparta.springresttemplateclient.dto.ItemDto;
+import com.sparta.springresttemplateclient.entity.*;
 import java.net.*;
 import java.util.*;
 import lombok.extern.slf4j.*;
@@ -59,7 +60,23 @@ public class RestTemplateService {
     }
 
     public ItemDto postCall(String query) {
-        return null;
+        // 요청 URL 만들기
+        URI uri = UriComponentsBuilder
+            .fromUriString("http://localhost:7070")
+            .path("/api/server/post-call/{query}")
+            .encode()
+            .build()
+            .expand(query)
+            .toUri();
+        log.info("uri = " + uri);
+
+        User user = new User("Robbie", "1234");
+
+        ResponseEntity<ItemDto> responseEntity = restTemplate.postForEntity(uri, user, ItemDto.class);
+
+        log.info("statusCode = " + responseEntity.getStatusCode());
+
+        return responseEntity.getBody();
     }
 
     public List<ItemDto> exchangeCall(String token) {
