@@ -22,6 +22,9 @@ repositories {
 }
 
 dependencies {
+	// json
+	implementation 'org.json:json:20230227'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
